@@ -130,7 +130,7 @@
         UIEdgeInsets edgeInsets = target.originalEdgeInsets;
         edgeInsets.top += HeaderViewOffset;
         scrollView.contentInset = edgeInsets;
-        [scrollView setContentOffset:CGPointMake(0, -HeaderViewOffset) animated:NO];
+        [scrollView setContentOffset:CGPointMake(0, -HeaderViewOffset) animated:YES];
         
     } completion:^(BOOL finished) {
         
@@ -153,14 +153,12 @@
         
         if (headerView.state == CWPullRefreshLoading)
         {
-            [headerView setState:CWPullRefreshNormal];
-            
             [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 [aScrollView setContentInset:headerView.originalEdgeInsets];
             } completion:^(BOOL finished) {
-                [aScrollView setContentOffset:CGPointZero];
-            }];
-        }
+                [aScrollView setContentOffset:CGPointMake(0, -headerView.originalEdgeInsets.top)];
+                [headerView setState:CWPullRefreshNormal];
+            }];        }
     });
 }
 
