@@ -98,6 +98,10 @@
     
     if (self.state != CWPullRefreshLoading) {
         CGFloat offsetY = fabs(scrollView.contentOffset.y);
+        if (offsetY < 5.0f) {
+            [self hideImagePlaceholder];
+            return;
+        }
         [self showImagePlaceholderAlpha:offsetY/45.0];
     } else {
         [self hideImagePlaceholder];
